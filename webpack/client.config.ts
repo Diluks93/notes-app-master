@@ -1,14 +1,11 @@
 import path from 'path';
 import { Configuration } from 'webpack';
-import webpack from 'webpack';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const config: Configuration = {
   entry: [
-    // 'webpack-hot-middleware/client?reload=true&noInfo=true',
     './client/index.tsx',
   ],
-  mode: 'production',
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, '../public'),
     filename: 'bundle.js',
@@ -31,11 +28,6 @@ const config: Configuration = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            plugins: [
-              require.resolve('react-refresh/babel')
-            ].filter(Boolean),
-          },
         },
       },
       {
@@ -64,12 +56,7 @@ const config: Configuration = {
       },
     ],
   },
-  // plugins: [
-  //   new webpack.HotModuleReplacementPlugin(),
-  //   new ReactRefreshWebpackPlugin(),
-  // ],
   devtool: 'inline-source-map',
-  // watch: true,
 };
 
 export default config;

@@ -1,12 +1,15 @@
-import { Box } from '../../components';
+import { Header } from '../../components';
 
-import { Title } from './styled';
+import { Title, WelcomeBox } from './styled';
 
 export function Welcome() {
   return (
-    <Box justifyContent="center" alignItems="center">
-      <Title>Welcome!</Title>
-    </Box>
+    <>
+      <Header />
+      <WelcomeBox>
+        <Title>Welcome!</Title>
+      </WelcomeBox>
+    </>
   );
 }
 
