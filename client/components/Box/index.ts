@@ -4,7 +4,6 @@ import type { TBox } from './models';
 export const Box = styled.div<TBox>`
   display: flex;
   width: inherit;
-  height: inherit;
 
   ${({
     flexDirection,
