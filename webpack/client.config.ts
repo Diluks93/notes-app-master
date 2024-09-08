@@ -5,7 +5,7 @@ const config: Configuration = {
   entry: [
     './client/index.tsx',
   ],
-  mode: 'development',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, '../public'),
     filename: 'bundle.js',

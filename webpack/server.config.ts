@@ -7,7 +7,7 @@ const config: Configuration = {
   entry: [
     './server/src/main.ts',
   ],
-  mode: 'development',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].server.js',

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StyledNavLink = styled(NavLink)`
-  font-family: Noto Sans;
+  font-family: 'Noto Sans', sans-serif;
   font-size: clamp(1rem, 2vw + 1rem, 1.5rem);
   font-weight: 700;
   line-height: 32.69px;
