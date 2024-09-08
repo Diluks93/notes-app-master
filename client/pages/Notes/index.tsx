@@ -1,12 +1,16 @@
-import { Box, Header } from '../../components';
+import { Header, Notes, SearchBar } from '../../components';
+import { NotesBox } from './styled';
 
-export function Notes() {
+export function NotesPage() {
   return (
     <>
       <Header />
-      <Box>This is our Notes component</Box>
+      <NotesBox>
+        <SearchBar />
+        <Notes />
+      </NotesBox>
     </>
   );
 }
 
-export default Notes;
+export default NotesPage;
