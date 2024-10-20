@@ -8,7 +8,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import { App, GlobalStyle } from '../../../client/components';
 
 @Controller()
-export class ReactController {
+export class AssrController {
   @Get('*')
   getReactApp(@Req() req: Request, @Res() res: Response) {
     const sheet = new ServerStyleSheet();

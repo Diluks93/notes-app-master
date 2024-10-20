@@ -10,7 +10,7 @@ const config: Configuration = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].server.js',
+    filename: 'server.js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
