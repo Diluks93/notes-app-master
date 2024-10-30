@@ -1,3 +1,3 @@
-import type { TNote } from '../../models';
+import type { INote } from '../../../../../shared';
 
-export type TSubTitleNote = Pick<TNote, 'subTitle'>;
+export type TSubTitleNote = Pick<INote, 'subTitle'>;

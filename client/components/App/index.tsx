@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { Welcome, NotesPage as Notes } from '../../pages';
-import { ROUTES } from '../../constants/routes';
+import { ROUTES } from '../../constants';
 
 export function App() {
   return (

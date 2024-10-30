@@ -9,8 +9,8 @@ import {
   Tooltip,
   Menu,
 } from './components';
-import type { TNote } from './models';
 import { StyledNote } from './styled';
+import type { INote } from '../../../shared';
 
 export function Note({
   color,
@@ -19,7 +19,7 @@ export function Note({
   description,
   tags,
   date,
-}: TNote) {
+}: INote) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
