@@ -1,44 +1,31 @@
-# syntax = docker/dockerfile:1
+# Install dependencies only when needed
+FROM node:20.18.0-alpine AS builder
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY . .
+RUN yarn install --frozen-lockfile
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=20.11.1
-FROM node:${NODE_VERSION}-slim as base
+ENV NEXT_TELEMETRY_DISABLED 1
 
-LABEL fly_launch_runtime="NestJS"
+# Add `ARG` instructions below if you need `NEXT_PUBLIC_` variables
+# then put the value on your fly.toml
+# Example:
+# ARG NEXT_PUBLIC_EXAMPLE="value here"
 
-# NestJS app lives here
+RUN yarn build
+
+# Production image, copy all the files and run next
+FROM node:20.18.0-alpine AS runner
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV="production"
-ARG YARN_VERSION=1.22.21
-RUN npm install -g yarn@$YARN_VERSION --force
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
 
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+COPY --from=builder /app ./
 
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
+USER nextjs
 
-# Install node modules
-COPY --link package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=false
-
-# Copy application code
-COPY --link . .
-
-# Build application
-RUN yarn run build
-
-
-# Final stage for app image
-FROM base
-
-# Copy built application
-COPY --from=build /app /app
-
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD [ "yarn", "run", "start" ]
+CMD ["yarn", "start"]
