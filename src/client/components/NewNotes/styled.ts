@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Border = styled.div`
+export const Border = styled.button`
   border: 5px dashed;
   border-color: #85e0a3;
   display: flex;
@@ -8,6 +8,17 @@ export const Border = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  transition: all 0.5s ease;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: azure;
+  }
+
+  &:active {
+    opacity: 1;
+    border-color: #32da69;
+  }
 `;
 
 export const Circle = styled.div`

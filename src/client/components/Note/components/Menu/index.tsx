@@ -13,3 +13,5 @@ export function Menu() {
     </>
   );
 }
+
+Menu.displayName = 'Menu';

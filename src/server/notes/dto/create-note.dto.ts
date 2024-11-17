@@ -21,10 +21,15 @@ export class CreateNoteDto implements TCreateNoteDtoModel {
   @IsOptional()
   readonly subTitle: INote['subTitle'];
 
-  constructor({ title, description, tags, subTitle }: TCreateNoteDtoModel) {
-    this.title = title || '';
-    this.description = description || '';
-    this.tags = tags || [];
-    this.subTitle = subTitle || '';
+  constructor({
+    title = '',
+    description = '',
+    tags = [],
+    subTitle = '',
+  }: Partial<TCreateNoteDtoModel> = {}) {
+    this.title = title;
+    this.description = description;
+    this.tags = tags;
+    this.subTitle = subTitle;
   }
 }
