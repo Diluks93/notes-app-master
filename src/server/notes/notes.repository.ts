@@ -2,13 +2,18 @@ import { Repository, DataSource, type DeleteResult } from 'typeorm';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { Note, Tag } from './entities';
-import { UpdateNoteOrderDto, CreateNoteDto, UpdateNoteDto } from './dto';
+import {
+  UpdateNoteOrderDto,
+  CreateNoteDto,
+  UpdateNoteDto,
+  NoteResponseDto,
+} from './dto';
 
 import { COLORS, type TValueColor } from '../../shared';
 import { PaginationQueryDto, GetFilterDto } from '../common';
 
 @Injectable()
-export class NotesRepository extends Repository<Note> {
+export class NotesRepository extends Repository<NoteResponseDto> {
   private logger = new Logger('NotesRepository', { timestamp: true });
   private lastColorIndex = -1;
 
@@ -31,7 +36,7 @@ export class NotesRepository extends Repository<Note> {
   async findAllNotes(
     { search }: GetFilterDto,
     { take, skip }: PaginationQueryDto,
-  ): Promise<Note[]> {
+  ): Promise<Array<NoteResponseDto>> {
     const query = this.createQueryBuilder('note');
 
     query.leftJoinAndSelect('note.tags', 'tag');
@@ -50,7 +55,7 @@ export class NotesRepository extends Repository<Note> {
   async createNote(
     createNoteDto: CreateNoteDto,
     tags: Array<Tag>,
-  ): Promise<Note> {
+  ): Promise<NoteResponseDto> {
     const order = await this.setOrder();
     const newNote = {
       ...new CreateNoteDto(createNoteDto),
@@ -65,7 +70,7 @@ export class NotesRepository extends Repository<Note> {
   async updateOrder(
     id: Note['id'],
     { order }: UpdateNoteOrderDto,
-  ): Promise<Array<Note>> {
+  ): Promise<Array<NoteResponseDto>> {
     let notes = await this.find({
       relations: ['tags'],
       order: { order: 'ASC' },
@@ -108,7 +113,7 @@ export class NotesRepository extends Repository<Note> {
     id: Note['id'],
     updateNoteDto: UpdateNoteDto,
     tags: Array<Tag>,
-  ): Promise<Note> {
+  ): Promise<NoteResponseDto> {
     const updatedNote = await this.preload({
       id,
       ...updateNoteDto,

@@ -10,12 +10,17 @@ import {
 } from '../common';
 
 import { Note, Tag } from './entities';
-import { CreateNoteDto, UpdateNoteDto, UpdateNoteOrderDto } from './dto';
+import {
+  CreateNoteDto,
+  UpdateNoteDto,
+  UpdateNoteOrderDto,
+  NoteResponseDto,
+} from './dto';
 import { NotesRepository } from './notes.repository';
 
 @Injectable()
 export class NotesService extends AbstractCrudService<
-  Note,
+  NoteResponseDto,
   CreateNoteDto,
   UpdateNoteDto
 > {
@@ -40,7 +45,7 @@ export class NotesService extends AbstractCrudService<
     return this.tagsRepository.create({ name });
   }
 
-  async create(createNoteDto: CreateNoteDto): Promise<Note> {
+  async create(createNoteDto: CreateNoteDto): Promise<NoteResponseDto> {
     const tags = await Promise.all(
       createNoteDto.tags.map((tag) => this.preloadTagByName(tag)),
     );
@@ -48,14 +53,17 @@ export class NotesService extends AbstractCrudService<
     return this.notesRepository.createNote(createNoteDto, tags);
   }
 
-  async findAllNotes(
+  async findAll(
     filterDto: GetFilterDto,
     paginationDto: PaginationQueryDto,
-  ): Promise<Note[]> {
+  ): Promise<NoteResponseDto[]> {
     return this.notesRepository.findAllNotes(filterDto, paginationDto);
   }
 
-  async update(id: Note['id'], updateNoteDto: UpdateNoteDto): Promise<Note> {
+  async update(
+    id: Note['id'],
+    updateNoteDto: UpdateNoteDto,
+  ): Promise<NoteResponseDto> {
     const tags =
       updateNoteDto.tags &&
       (await Promise.all(
@@ -68,7 +76,7 @@ export class NotesService extends AbstractCrudService<
   async updateNoteOrder(
     id: Note['id'],
     updateNoteOrderDto: UpdateNoteOrderDto,
-  ): Promise<Array<Note>> {
+  ): Promise<Array<NoteResponseDto>> {
     return this.notesRepository.updateOrder(id, updateNoteOrderDto);
   }
 

@@ -4,3 +4,5 @@ import { StyledSubTitle } from './styled';
 export function SubTitle({ subTitle }: TSubTitleNote) {
   return <StyledSubTitle>{subTitle}</StyledSubTitle>;
 }
+
+SubTitle.displayName = 'SubTitle';

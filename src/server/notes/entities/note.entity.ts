@@ -5,7 +5,6 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Transform } from 'class-transformer';
 
 import { COLORS, type INote, type TValueColor } from '../../../shared';
 
@@ -29,13 +28,6 @@ export class Note implements INote {
   color: TValueColor;
 
   @Column({ type: 'date', default: () => 'CURRENT_DATE' })
-  @Transform(({ value }) => {
-    if (!value) return null;
-    const date = value instanceof Date ? value : new Date(value);
-    return `${date.getFullYear()}.${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
-  })
   date: Date;
 
   @JoinTable({

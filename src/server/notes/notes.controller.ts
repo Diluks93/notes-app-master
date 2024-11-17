@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Patch,
+  Post,
   Query,
   UseInterceptors,
 } from '@nestjs/common';
@@ -13,19 +14,24 @@ import {
 import {
   AbstractCrudController,
   PaginationQueryDto,
-  TransformInterceptor,
   GetFilterDto,
 } from '../common';
 import { PAGINATION } from '../../shared';
 
-import { CreateNoteDto, UpdateNoteDto, UpdateNoteOrderDto } from './dto';
+import {
+  CreateNoteDto,
+  UpdateNoteDto,
+  UpdateNoteOrderDto,
+  NoteResponseDto,
+} from './dto';
 import { NotesService } from './notes.service';
-import { Note, type Tag } from './entities';
+import { Note, Tag } from './entities';
+import { NotesTransformInterceptor } from './interceptors';
 
 @Controller('api/notes')
-@UseInterceptors(TransformInterceptor)
+@UseInterceptors(NotesTransformInterceptor)
 export class NotesController extends AbstractCrudController<
-  Note,
+  NoteResponseDto,
   CreateNoteDto,
   UpdateNoteDto
 > {
@@ -38,8 +44,8 @@ export class NotesController extends AbstractCrudController<
     @Query() filterDto: GetFilterDto,
     @Query()
     paginationDto: PaginationQueryDto,
-  ): Promise<Array<Note>> {
-    return this.service.findAllNotes(filterDto, {
+  ): Promise<Array<NoteResponseDto>> {
+    return this.service.findAll(filterDto, {
       take: paginationDto.take || PAGINATION.take,
       skip: paginationDto.skip || PAGINATION.skip,
     });
@@ -49,7 +55,7 @@ export class NotesController extends AbstractCrudController<
   async updateOrder(
     @Param('id') id: Note['id'],
     @Body() updateOrderDto: UpdateNoteOrderDto,
-  ): Promise<Array<Note>> {
+  ): Promise<Array<NoteResponseDto>> {
     return this.service.updateNoteOrder(id, updateOrderDto);
   }
 
@@ -60,5 +66,23 @@ export class NotesController extends AbstractCrudController<
     @Param('tagId') tagId: Tag['id'],
   ): Promise<void> {
     return this.service.removeTag(id, tagId);
+  }
+
+  @Post()
+  async create(@Body() createDto: CreateNoteDto): Promise<NoteResponseDto> {
+    return super.create(createDto);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: Note['id'],
+    @Body() updateDto: UpdateNoteDto,
+  ): Promise<NoteResponseDto> {
+    return super.update(id, updateDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: Note['id']): Promise<void> {
+    return super.remove(id);
   }
 }

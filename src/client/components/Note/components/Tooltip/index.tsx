@@ -4,3 +4,5 @@ import { StyledTooltip } from './styled';
 export function Tooltip(props: TTooltip) {
   return <StyledTooltip {...props}>Right click to open settings</StyledTooltip>;
 }
+
+Tooltip.displayName = 'Tooltip';

@@ -6,3 +6,5 @@ export function Time({ date }: TTimeNote) {
 
   return <StyledTime dateTime={dateAsString}>{dateAsString}</StyledTime>;
 }
+
+Time.displayName = 'Time';
