@@ -5,7 +5,5 @@ export * from './Time';
 export * from './Tags';
 export * from './Tooltip';
 export * from './Menu';
-export * from './TitleInput';
-export * from './SubTitleInput';
 export * from './Main';
-export * from './DescriptionTextarea';
+export * from './Error';

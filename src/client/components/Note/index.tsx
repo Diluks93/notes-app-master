@@ -1,101 +1,74 @@
-import { useState, type MouseEvent } from 'react';
-import { useForm } from 'react-hook-form';
+import { useCallback, useRef, useState, type MouseEvent } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import {
   Title,
-  SubTitle,
-  Description,
   Time,
   Tags,
   Tooltip,
   Menu,
-  TitleInput,
-  StyledSubTitle as SubTitleInput,
-  DescriptionTextarea,
   StyledMain,
+  SubTitle,
+  Description,
 } from './components';
 import { StyledNote } from './styled';
 
 import type { INote } from '../../../shared';
 
-export function Note({
-  color,
-  title,
-  subTitle,
-  description,
-  tags,
-  date,
-}: INote) {
+export function Note(props: INote) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const [isEditing, setIsEditing] = useState(!title);
   const [showMenu, setShowMenu] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ top: 0, left: 0 });
+  const mousePositionRef = useRef({ top: 0, left: 0 });
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const methods = useForm<INote>({
+    defaultValues: {
+      ...props,
+    },
+  });
 
-  const { register, handleSubmit } = useForm<INote>();
+  const handleMouseMove = useCallback(
+    ({ clientX, clientY }: MouseEvent) => {
+      mousePositionRef.current = {
+        top: clientY + 10,
+        left: clientX + 10,
+      };
+      setShowTooltip(!showMenu);
+      requestAnimationFrame(() => {
+        setTooltipPosition(mousePositionRef.current);
+      });
+    },
+    [showMenu],
+  );
 
-  const handleMouseMove = ({ clientX, clientY }: MouseEvent) => {
-    setMousePosition({
-      top: clientY + 10,
-      left: clientX + 10,
-    });
-    setShowTooltip(!showMenu);
-  };
-
-  const handleRightClick = (e: MouseEvent) => {
+  const handleRightClick = useCallback((e: MouseEvent) => {
     e.preventDefault();
     setShowMenu(true);
     setShowTooltip(false);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setShowTooltip(false);
-  };
+  }, []);
 
-  const onSubmit = (data: Omit<INote, 'id' | 'date'>) => {
-    console.log(data);
-    setIsEditing(false);
-  };
-
-  return isEditing ? (
-    <StyledNote as="form" color={color} onSubmit={handleSubmit(onSubmit)}>
-      <TitleInput
-        {...register('title', { value: title })}
-        autoFocus
-        placeholder="Title"
-      />
-      <StyledMain>
-        <SubTitleInput
-          {...register('subTitle', { value: subTitle })}
-          placeholder="Subtitle"
-        />
-        <DescriptionTextarea
-          {...register('description', { value: description })}
-          placeholder="Description"
-        />
-      </StyledMain>
-      <Time date={date} />
-      <Tags tags={tags} />
-      {showTooltip && <Tooltip {...mousePosition} />}
-      {showMenu && <Menu />}
-      <button type="submit">Save</button>
-    </StyledNote>
-  ) : (
-    <StyledNote
-      color={color}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      onContextMenu={handleRightClick}
-    >
-      <Title title={title} />
-      <StyledMain>
-        <SubTitle subTitle={subTitle} />
-        <Description description={description} />
-      </StyledMain>
-      <Time date={date} />
-      <Tags tags={tags} />
-      {showTooltip && <Tooltip {...mousePosition} />}
-      {showMenu && <Menu />}
-    </StyledNote>
+  return (
+    <FormProvider {...methods}>
+      <StyledNote
+        color={methods.getValues('color')}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        onContextMenu={handleRightClick}
+      >
+        <Title />
+        <StyledMain>
+          <SubTitle />
+          <Description />
+        </StyledMain>
+        <Time date={props.date} />
+        <Tags tags={props.tags} />
+        {showTooltip && <Tooltip {...tooltipPosition} />}
+        {showMenu && <Menu />}
+      </StyledNote>
+    </FormProvider>
   );
 }
 

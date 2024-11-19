@@ -4,6 +4,7 @@ import {
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { COLORS, type INote, type TValueColor } from '../../../shared';
@@ -27,7 +28,7 @@ export class Note implements INote {
   })
   color: TValueColor;
 
-  @Column({ type: 'date', default: () => 'CURRENT_DATE' })
+  @UpdateDateColumn({ type: 'date', default: () => 'CURRENT_DATE' })
   date: Date;
 
   @JoinTable({

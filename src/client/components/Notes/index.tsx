@@ -6,7 +6,12 @@ import { Skeleton } from '../Skeleton';
 import { NotesBox } from './styled';
 
 export function Notes() {
-  const { data: notes, isError, isLoading, error } = useGetNotes({ take: '1' });
+  const {
+    data: notes,
+    isError,
+    isLoading,
+    error,
+  } = useGetNotes({ take: '10' });
 
   if (isLoading) {
     // TODO добавить количество скелетонов на ширину экрана

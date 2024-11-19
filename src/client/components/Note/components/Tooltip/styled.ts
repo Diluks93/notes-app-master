@@ -1,11 +1,13 @@
-import isPropValid from '@emotion/is-prop-valid';
+import styled from 'styled-components';
 
-import styled, { css } from 'styled-components';
 import type { TTooltip } from './models';
 
-export const StyledTooltip = styled.div.withConfig({
-  shouldForwardProp: (prop) => isPropValid(prop) || prop.startsWith('$'),
-})<TTooltip>`
+export const StyledTooltip = styled.div.attrs<TTooltip>(({ top, left }) => ({
+  style: {
+    top: `${top}px`,
+    left: `${left}px`,
+  },
+}))`
   position: fixed;
   background-color: #000;
   color: #fff;
@@ -15,8 +17,4 @@ export const StyledTooltip = styled.div.withConfig({
   white-space: nowrap;
   z-index: 10;
   pointer-events: none;
-  ${({ top, left }) => css`
-    top: ${top}px;
-    left: ${left}px;
-  `}
 `;

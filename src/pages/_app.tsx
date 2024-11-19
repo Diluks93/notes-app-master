@@ -7,6 +7,8 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
+import { StyleSheetManager } from 'styled-components';
+import isPropValid from '@emotion/is-prop-valid';
 
 import GlobalStyle from '../client/components/GlobalStyle';
 
@@ -31,7 +33,9 @@ function App({ Component, pageProps }: AppProps) {
         <HydrationBoundary state={pageProps.dehydratedState}>
           <GlobalStyle />
           <ReactQueryDevtools initialIsOpen={false} />
-          <Component {...pageProps} />
+          <StyleSheetManager shouldForwardProp={isPropValid}>
+            <Component {...pageProps} />
+          </StyleSheetManager>
         </HydrationBoundary>
       </QueryClientProvider>
     </>
