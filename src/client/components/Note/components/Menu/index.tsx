@@ -1,15 +1,18 @@
 import { COLORS } from '../../../../../shared';
-import { StyledColor, StyledMenu, StyledRemoveButton } from './styled';
+
+import { StyledMenu } from './styled';
+import { Color } from './Color';
+import { Remove } from './Remove';
 
 export function Menu() {
   return (
     <>
       <StyledMenu>
         {COLORS.map((color) => (
-          <StyledColor color={color} />
+          <Color key={color} color={color} />
         ))}
       </StyledMenu>
-      <StyledRemoveButton>Remove</StyledRemoveButton>
+      <Remove />
     </>
   );
 }

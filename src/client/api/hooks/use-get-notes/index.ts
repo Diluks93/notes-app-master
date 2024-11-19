@@ -5,12 +5,12 @@ import {
 import axios from 'axios';
 
 import { KEY } from '../../../constants';
-import type { IPaginationParams } from '../../models';
+import type { IParams } from '../../models';
 import { getNotesUrl } from '../../helpers';
 import type { INote } from '../../../../shared';
 
 export const useGetNotes = (
-  params?: IPaginationParams,
+  params?: IParams,
   options?: UndefinedInitialDataOptions<Array<INote>>,
 ) => {
   const { data, isLoading, isError, error } = useQuery<Array<INote>>({
