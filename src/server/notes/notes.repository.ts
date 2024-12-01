@@ -44,7 +44,18 @@ export class NotesRepository extends Repository<NoteResponseDto> {
     query.leftJoinAndSelect('note.tags', 'tag');
 
     if (search) {
-      query.andWhere('(tag.name ILIKE :search)', { search: `%${search}%` });
+      query
+        .andWhere(
+          'note.id IN ' +
+            query
+              .subQuery()
+              .select('note.id')
+              .from('note', 'note')
+              .leftJoin('note.tags', 'tag')
+              .where('tag.name ILIKE :search')
+              .getQuery(),
+        )
+        .setParameter('search', `%${search}%`);
     }
 
     return await query

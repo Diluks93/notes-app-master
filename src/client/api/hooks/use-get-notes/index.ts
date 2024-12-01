@@ -15,7 +15,7 @@ export const useGetNotes = (
 ) => {
   const { data, isLoading, isError, error } = useQuery<Array<INote>>({
     ...options,
-    queryKey: [KEY.NOTES],
+    queryKey: [KEY.NOTES, params.search],
     queryFn: async () => (await axios.get(getNotesUrl(params))).data,
   });
 
