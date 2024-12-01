@@ -7,11 +7,12 @@ import type { INote } from '../../../../shared';
 export const useEditNote = (fieldName: keyof INote) => {
   const [isEditing, setIsEditing] = useState(false);
   const {
+    formState: { errors, dirtyFields },
     register,
     getValues,
-    formState: { errors, dirtyFields },
     trigger,
-    reset,
+    setValue,
+    ...rest
   } = useFormContext<INote>();
   const { mutation } = useUpdateNote(getValues('id'));
 
@@ -22,16 +23,22 @@ export const useEditNote = (fieldName: keyof INote) => {
   const handleBlur = () => {
     setIsEditing(false);
     trigger(fieldName);
+    const regex = new RegExp(/\B#[\wа-яА-ЯёЁ-]+/g);
+    const tags = getValues('description').match(regex) || [];
 
     if (Object.keys(dirtyFields).length > 0) {
       mutation.mutate(
         {
           ...getValues(),
           [fieldName]: getValues(fieldName),
-          tags: getValues('tags').map(({ name }) => name),
+          tags,
         },
         {
-          onSuccess: () => reset(getValues()),
+          onSuccess: (newNote) => {
+            Object.entries(newNote).forEach(([key, value]) =>
+              setValue(key as keyof typeof newNote, value),
+            );
+          },
         },
       );
     }
@@ -44,5 +51,8 @@ export const useEditNote = (fieldName: keyof INote) => {
     getValues,
     handleClick,
     handleBlur,
+    trigger,
+    setValue,
+    ...rest,
   };
 };

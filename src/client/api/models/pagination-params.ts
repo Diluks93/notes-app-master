@@ -3,4 +3,5 @@ export type IParams = {
   skip?: string;
   search?: string;
   id?: string;
+  tagId?: string;
 };

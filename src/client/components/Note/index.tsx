@@ -1,6 +1,8 @@
 import { useCallback, useRef, useState, type MouseEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import type { INote } from '../../../shared';
+
 import {
   Title,
   Time,
@@ -12,8 +14,6 @@ import {
   Description,
 } from './components';
 import { StyledNote } from './styled';
-
-import type { INote } from '../../../shared';
 
 export function Note(props: INote) {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -64,7 +64,7 @@ export function Note(props: INote) {
           <Description />
         </StyledMain>
         <Time date={props.date} />
-        <Tags tags={props.tags} />
+        <Tags />
         {showTooltip && <Tooltip {...tooltipPosition} />}
         {showMenu && <Menu />}
       </StyledNote>

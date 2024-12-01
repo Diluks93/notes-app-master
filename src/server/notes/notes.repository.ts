@@ -1,6 +1,9 @@
 import { Repository, DataSource, type DeleteResult } from 'typeorm';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 
+import { COLORS, type TValueColor } from '../../shared';
+import { PaginationQueryDto, GetFilterDto } from '../common';
+
 import { Note, Tag } from './entities';
 import {
   UpdateNoteOrderDto,
@@ -8,9 +11,6 @@ import {
   UpdateNoteDto,
   NoteResponseDto,
 } from './dto';
-
-import { COLORS, type TValueColor } from '../../shared';
-import { PaginationQueryDto, GetFilterDto } from '../common';
 
 @Injectable()
 export class NotesRepository extends Repository<NoteResponseDto> {
@@ -22,9 +22,11 @@ export class NotesRepository extends Repository<NoteResponseDto> {
   }
 
   private async setOrder(): Promise<number> {
-    const [, maxOrder] = await this.findAndCount();
+    const maxOrderRecord = await this.createQueryBuilder('entity')
+      .select('MAX(entity.order)', 'maxOrder')
+      .getRawOne();
 
-    return maxOrder ? maxOrder + 1 : 1;
+    return maxOrderRecord?.maxOrder ? maxOrderRecord.maxOrder + 1 : 1;
   }
 
   private getNextColor(): TValueColor {

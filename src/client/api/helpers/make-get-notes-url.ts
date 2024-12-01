@@ -4,7 +4,13 @@ import type { IParams } from '../models';
 /**
  * Make the URL if parameters are specified
  */
-export const getNotesUrl = ({ take, skip, search, id }: IParams): string => {
+export const getNotesUrl = ({
+  take,
+  skip,
+  search,
+  id,
+  tagId,
+}: IParams): string => {
   const params = new URLSearchParams();
   let baseUrl = `api/${KEY.NOTES}`;
 
@@ -12,6 +18,7 @@ export const getNotesUrl = ({ take, skip, search, id }: IParams): string => {
   if (skip) params.append('skip', skip);
   if (search) params.append('search', search);
   if (id) baseUrl += `/${id}`;
+  if (tagId) baseUrl += `/tags/${tagId}`;
 
   return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
 };

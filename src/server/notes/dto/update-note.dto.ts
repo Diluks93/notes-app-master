@@ -1,10 +1,12 @@
 import { IsIn, IsOptional } from 'class-validator';
 
 import { COLORS, type INote } from '../../../shared';
-import { CreateNoteDto } from './create-note.dto';
 
-export class UpdateNoteDto extends CreateNoteDto implements Partial<INote> {
+export class UpdateNoteDto implements Partial<Omit<INote, 'tags'>> {
   @IsOptional()
   @IsIn(COLORS)
   readonly color?: INote['color'];
+
+  @IsOptional()
+  readonly tags: string[];
 }
