@@ -33,13 +33,13 @@ export class NotesService extends AbstractCrudService<
     super(notesRepository);
   }
 
-  private async preloadTagByName({ name }: ITag): Promise<Tag> {
-    const existingFlavor = await this.tagsRepository.findOne({
+  private async preloadTagByName(name: ITag['name']): Promise<Tag> {
+    const existingTag = await this.tagsRepository.findOne({
       where: { name },
     });
 
-    if (existingFlavor) {
-      return existingFlavor;
+    if (existingTag) {
+      return existingTag;
     }
 
     return this.tagsRepository.create({ name });
@@ -47,7 +47,7 @@ export class NotesService extends AbstractCrudService<
 
   async create(createNoteDto: CreateNoteDto): Promise<NoteResponseDto> {
     const tags = await Promise.all(
-      createNoteDto.tags.map((tag) => this.preloadTagByName(tag)),
+      createNoteDto.tags.map((tag) => this.preloadTagByName(tag.name)),
     );
 
     return this.notesRepository.createNote(createNoteDto, tags);
