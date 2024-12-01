@@ -1,14 +1,19 @@
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { StyledInput, StyledForm, StyledIcon } from './styled';
 
 export function SearchBar() {
-  const { register, handleSubmit } = useForm();
+  const { register } = useFormContext<{ search: string }>();
 
   return (
-    <StyledForm onSubmit={handleSubmit((data) => console.log(data))}>
+    <StyledForm>
       <StyledIcon className="fas fa-search" />
-      <StyledInput {...register('search')} placeholder="Search tag..." />
+      <StyledInput
+        {...register('search', {
+          setValueAs: (value) => (value ? `#${value}` : undefined),
+        })}
+        placeholder="Search tag..."
+      />
     </StyledForm>
   );
 }

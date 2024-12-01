@@ -5,6 +5,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import axios from 'axios';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { Header, Notes, SearchBar } from '../client/components';
 import { KEY } from '../client/constants';
@@ -33,13 +34,17 @@ export async function getStaticProps() {
 }
 
 function NotesPage({ dehydratedState }) {
+  const methods = useForm<{ search: string }>();
+
   return (
     <>
       <Header />
       <NotesBox>
         <HydrationBoundary state={dehydratedState}>
-          <SearchBar />
-          <Notes />
+          <FormProvider {...methods}>
+            <SearchBar />
+            <Notes />
+          </FormProvider>
         </HydrationBoundary>
       </NotesBox>
     </>
