@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { Box } from '../Box';
-import type { TNotesBox } from './models';
+import { Box } from '../../../Box';
+import type { TNotesBox } from '../../models';
 
 export const NotesBox = styled(Box)<TNotesBox>`
   height: 85%;

@@ -13,9 +13,10 @@ import {
   SubTitle,
   Description,
 } from './components';
-import { StyledNote } from './styled';
+import { StyledDraggable, StyledNote } from './styled';
+import type { TNote } from './models';
 
-export function Note(props: INote) {
+export function Note(props: TNote) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const mousePositionRef = useRef({ top: 0, left: 0 });
@@ -58,6 +59,7 @@ export function Note(props: INote) {
         onMouseMove={handleMouseMove}
         onContextMenu={handleRightClick}
       >
+        <StyledDraggable {...props.dragHandleProps} />
         <Title />
         <StyledMain>
           <SubTitle />

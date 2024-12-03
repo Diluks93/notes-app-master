@@ -11,7 +11,7 @@ export const StyledDescriptionTextarea = styled.textarea`
   border-radius: 5px;
   resize: none;
   min-height: 100px;
-  max-height: 330px;
+  max-height: 310px;
   box-sizing: border-box;
 
   position: absolute;
@@ -30,13 +30,13 @@ export const StyledDescriptionTextarea = styled.textarea`
 export const StyledDescriptionWrapper = styled.div`
   position: relative;
   min-height: 100px;
-  max-height: 330px;
+  max-height: 310px;
 `;
 
 export const HighlightedContent = styled.div<{ isPadding?: boolean }>`
   font-weight: normal;
   min-height: 100px;
-  max-height: 330px;
+  max-height: 310px;
   overflow-y: auto;
   box-sizing: border-box;
   white-space: pre-wrap;
@@ -62,7 +62,7 @@ export const StyledDescription = styled.p`
   font-weight: normal;
   margin-bottom: 11px;
   min-height: 100px;
-  max-height: 330px;
+  max-height: 310px;
   width: 100%;
   overflow-y: auto;
   box-sizing: border-box;
