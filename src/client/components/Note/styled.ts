@@ -13,3 +13,16 @@ export const StyledNote = styled.form<TColor>`
   flex-direction: row;
   position: relative;
 `;
+
+export const StyledDraggable = styled.span`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    background: bisque;
+  }
+`;

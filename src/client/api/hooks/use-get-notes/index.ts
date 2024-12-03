@@ -13,11 +13,11 @@ export const useGetNotes = (
   params?: IParams,
   options?: UndefinedInitialDataOptions<Array<INote>>,
 ) => {
-  const { data, isLoading, isError, error } = useQuery<Array<INote>>({
+  const query = useQuery<Array<INote>>({
     ...options,
     queryKey: [KEY.NOTES, params.search],
     queryFn: async () => (await axios.get(getNotesUrl(params))).data,
   });
 
-  return { data, isLoading, isError, error };
+  return { ...query };
 };
