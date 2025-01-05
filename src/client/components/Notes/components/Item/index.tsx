@@ -21,7 +21,7 @@ export const Item = ({
           ...(snapshot.isDragging ? dragItemStyle : {}),
         }}
       >
-        {children(item, provided.dragHandleProps)}
+        {children(item, provided.dragHandleProps, index)}
       </div>
     )}
   </Draggable>

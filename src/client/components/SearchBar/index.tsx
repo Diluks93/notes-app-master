@@ -8,12 +8,7 @@ export function SearchBar() {
   return (
     <StyledForm>
       <StyledIcon className="fas fa-search" />
-      <StyledInput
-        {...register('search', {
-          setValueAs: (value) => (value ? `#${value}` : undefined),
-        })}
-        placeholder="Search tag..."
-      />
+      <StyledInput {...register('search')} placeholder="Search tag..." />
     </StyledForm>
   );
 }

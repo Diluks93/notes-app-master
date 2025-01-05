@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
+import { NOTE_SIZE } from '../../constants';
+
 export const Border = styled.button`
   border: 5px dashed;
   border-color: #85e0a3;
   display: flex;
-  max-width: 360px;
+  width: ${NOTE_SIZE}px;
   justify-content: center;
   align-items: center;
-  width: 100%;
   transition: all 0.5s ease;
+  margin-right: 30px;
+  margin-top: 45px;
 
   &:hover {
     opacity: 0.8;
