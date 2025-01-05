@@ -15,8 +15,6 @@ const background = css`
 `;
 
 export const StyledSkeleton = styled.div`
-  height: 85%;
-  margin-top: 45px;
   background: #554e4ea1;
   max-width: 360px;
   display: flex;

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
+import { NOTE_SIZE } from '../../constants';
+
 import type { TColor } from './models';
 
 export const StyledNote = styled.form<TColor>`
-  width: 360px;
+  width: ${NOTE_SIZE}px;
   display: flex;
   padding: 8px 14px 0 14px;
   background-color: ${({ color }) => `#${color}`};
@@ -12,6 +14,7 @@ export const StyledNote = styled.form<TColor>`
   align-content: flex-start;
   flex-direction: row;
   position: relative;
+  margin-top: 45px;
 `;
 
 export const StyledDraggable = styled.span`

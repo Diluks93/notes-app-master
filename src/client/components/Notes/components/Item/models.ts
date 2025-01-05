@@ -8,5 +8,6 @@ export type TItem<T> = {
   children: (
     item: T,
     dragProps: DraggableProvided['dragHandleProps'],
+    index: number,
   ) => ReactNode;
 };
