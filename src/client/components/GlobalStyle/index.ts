@@ -61,6 +61,16 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
+
+  :root {
+    --header-background: #eeeeee;
+    --new-note-border-color: #85e0a3;
+    --active-color: #858585;
+    --black: #010101;
+    --white: #ffffff;
+
+    --note-size: 360px;
+  }
 `;
 
 export default GlobalStyle;

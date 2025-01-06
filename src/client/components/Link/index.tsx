@@ -16,4 +16,4 @@ export function Link({ children, href, ...rest }) {
   );
 }
 
-export default Link;
+Link.displayName = 'Link';

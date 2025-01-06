@@ -7,7 +7,7 @@ export const StyledDescriptionTextarea = styled.textarea`
   overflow-y: auto;
   background: transparent;
   padding-left: 8px;
-  border: 1px solid #858585;
+  border: 1px solid var(--active-color);
   border-radius: 5px;
   resize: none;
   min-height: 100px;
@@ -18,11 +18,11 @@ export const StyledDescriptionTextarea = styled.textarea`
   top: 0;
   left: 0;
   color: transparent;
-  caret-color: black;
+  caret-color: var(--black);
   z-index: 2;
 
   &:focus {
-    border-color: #000;
+    border-color: var(--black);
     outline: none;
   }
 `;

@@ -4,7 +4,7 @@ export const StyledTime = styled.time`
   width: 100%;
   text-align: end;
   align-self: flex-start;
-  color: #858585;
+  color: var(--active-color);
   position: absolute;
   bottom: 22px;
   right: 14px;

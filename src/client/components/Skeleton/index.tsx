@@ -20,3 +20,5 @@ export function Skeleton() {
     </StyledSkeleton>
   );
 }
+
+Skeleton.displayName = 'Skeleton';

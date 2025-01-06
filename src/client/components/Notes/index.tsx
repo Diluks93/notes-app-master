@@ -9,6 +9,7 @@ import { Skeleton } from '../Skeleton';
 
 import { List } from './components';
 import { NotesBox } from './styled';
+import type { TOldData } from './models';
 
 export function Notes() {
   const { watch } = useFormContext<{ search: string }>();
@@ -100,7 +101,7 @@ export function Notes() {
 
     queryClient.setQueriesData(
       { queryKey: [KEY.NOTES], exact: false },
-      (oldData: any) => ({
+      (oldData: TOldData) => ({
         ...oldData,
         pages: updatedPages,
       }),
@@ -129,3 +130,5 @@ export function Notes() {
     </List>
   );
 }
+
+Notes.displayName = 'Notes';
