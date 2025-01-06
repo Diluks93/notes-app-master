@@ -5,7 +5,7 @@ import type { INote } from '../../../../shared';
 import { KEY } from '../../../../client/constants';
 import { getNotesUrl } from '../../helpers';
 
-export const useUpdateNote = (id: string) => {
+export const useUpdateNote = (id: INote['id']) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<
     INote,

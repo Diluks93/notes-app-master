@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import { NOTE_SIZE } from '../../constants';
-
 export const Border = styled.button`
   border: 5px dashed;
-  border-color: #85e0a3;
+  border-color: var(--new-note-border-color);
   display: flex;
-  width: ${NOTE_SIZE}px;
+  width: var(--note-size);
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease;
@@ -26,7 +24,7 @@ export const Border = styled.button`
 
 export const Circle = styled.div`
   border: 4px solid;
-  border-color: #85e0a3;
+  border-color: var(--new-note-border-color);
   display: flex;
   border-radius: 50%;
   width: 120px;
@@ -48,7 +46,7 @@ export const Add = styled.div`
     top: 20px;
     width: 40px;
     height: 3px;
-    background: #85e0a3;
+    background: var(--new-note-border-color);
     border-radius: 2px;
   }
 

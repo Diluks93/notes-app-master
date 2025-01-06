@@ -1,5 +1,5 @@
 import { ROUTES } from '../../constants';
-import Link from '../Link';
+import { Link } from '../Link';
 
 import { HeaderBox } from './styled';
 
@@ -16,4 +16,4 @@ export function Header() {
   );
 }
 
-export default Header;
+Header.displayName = 'Header';

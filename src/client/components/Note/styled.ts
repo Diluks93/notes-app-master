@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-import { NOTE_SIZE } from '../../constants';
-
 import type { TColor } from './models';
 
 export const StyledNote = styled.form<TColor>`
-  width: ${NOTE_SIZE}px;
+  width: var(--note-size);
   display: flex;
   padding: 8px 14px 0 14px;
   background-color: ${({ color }) => `#${color}`};

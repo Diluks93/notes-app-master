@@ -17,3 +17,5 @@ export function NewNote() {
     </Border>
   );
 }
+
+NewNote.displayName = 'NewNote';

@@ -12,3 +12,5 @@ export function SearchBar() {
     </StyledForm>
   );
 }
+
+SearchBar.displayName = 'SearchBar';

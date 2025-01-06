@@ -16,7 +16,7 @@ const background = css`
 
 export const StyledSkeleton = styled.div`
   background: #554e4ea1;
-  max-width: 360px;
+  max-width: var(--note-size);
   display: flex;
   padding: 8px 14px 0 14px;
   flex-direction: column;

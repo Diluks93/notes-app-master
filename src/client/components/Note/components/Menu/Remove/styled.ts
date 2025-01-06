@@ -5,8 +5,8 @@ export const StyledRemoveButton = styled.button`
   height: 40px;
   padding: 9px 8px 9px 27px;
   border-radius: 0px 10px 10px 0px;
-  background-color: #858585;
-  color: #fff;
+  background-color: var(--active-color);
+  color: var(--white);
   font-family: 'Noto Sans', sans-serif;
   font-weight: 500;
   line-height: 21.79px;

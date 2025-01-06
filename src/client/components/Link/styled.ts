@@ -8,9 +8,9 @@ export const StyledNavLink = styled(Link)`
   line-height: 32.69px;
   letter-spacing: 0.05em;
   text-align: left;
-  color: #010101;
+  color: var(--black);
 
   &.active {
-    color: #858585;
+    color: var(--active-color);
   }
 `;

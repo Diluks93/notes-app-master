@@ -21,6 +21,7 @@ export function Note(props: TNote) {
   const [showMenu, setShowMenu] = useState(false);
   const mousePositionRef = useRef({ top: 0, left: 0 });
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const methods = useForm<INote>({
     defaultValues: {
       ...props,
@@ -33,7 +34,16 @@ export function Note(props: TNote) {
         top: clientY + 10,
         left: clientX + 10,
       };
-      setShowTooltip(!showMenu);
+      setShowTooltip(false);
+
+      if (idleTimeoutRef.current) {
+        clearTimeout(idleTimeoutRef.current);
+      }
+
+      idleTimeoutRef.current = setTimeout(() => {
+        setShowTooltip(true);
+      }, 3000);
+
       requestAnimationFrame(() => {
         setTooltipPosition(mousePositionRef.current);
       });
@@ -49,6 +59,10 @@ export function Note(props: TNote) {
 
   const handleMouseLeave = useCallback(() => {
     setShowTooltip(false);
+
+    if (idleTimeoutRef.current) {
+      clearTimeout(idleTimeoutRef.current);
+    }
   }, []);
 
   return (
